@@ -1,0 +1,155 @@
+namespace API;
+
+struct Vec3 {
+  x:float;
+  y:float;
+  z:float;
+}
+
+struct PosRot {
+  pos:Vec3;
+  rot:Vec3;
+}
+
+struct ID {
+  l:uint64;
+  m:uint64;
+}
+
+table TextureDefinition {
+  label:string;
+  data:string; //md5 hash
+}
+
+table StringDefinition {
+  label:string;
+  data:string; //md5 hash
+}
+
+table AttributeDefinition {
+  label:string;
+  attribute:int32;
+}
+
+enum HandshakeVersion : uint32 {  v1, v2 }
+enum ProtocolVersion : uint32 { v1, v2 }
+table Handshake {
+  handshake_version:HandshakeVersion;
+  protocol_version:ProtocolVersion;
+  user_token:string;
+  user_id:ID;
+  session_id:ID;
+  url:string;
+}
+
+//not implemented
+enum UserActionType : ubyte { Highfive, Fireworks, Skybox } 
+table UserAction {
+  type:UserActionType;
+  //extra metadata to be added
+}
+
+table FireworksMetadata {
+  position:Vec3;
+}
+
+table HighfiveMetadata {
+  user1:ID;
+  user2:ID;
+}
+
+enum WowType : ubyte { Positive, Negative }
+table WowMetadata {
+  structure_id:ID;
+  type:WowType;
+}
+
+union ActionMetadata {
+  FireworksMetadata,
+  HighfiveMetadata,
+  WowMetadata,
+}
+
+table On3DAction {
+  type:UserActionType;
+  data:ActionMetadata;
+}
+
+table SetObjectTextures {
+  object_id:ID;
+  objects:[TextureDefinition];
+}
+
+table SetObjectStrings {
+  object_id:ID;
+  objects:[StringDefinition];
+}
+
+table InteractonTrigger {
+  space_id:ID;
+  label:string;
+  metadata:string;
+}
+
+table DecorationMetadata {
+  asset_id:ID;
+  pos:PosRot;
+}
+
+table SetWorld {
+  world_id:ID;
+  name: string;
+  avatar_controller_id:ID;
+  skybox_controller_id:ID;
+  lod_distances:[uint32];
+  decorations:[DecorationMetadata];
+}
+
+table ObjectDefinition {
+  object_id:ID;
+  name:string;
+  position:Vec3;
+  parent_id:ID;
+  asset_type:ID; 
+  tethered_to_parent:bool;
+  minimap:bool;
+  infoui_type:ID;
+}
+
+table AddStaticObjects {
+  objects:[ObjectDefinition];
+}
+
+table ActiveObjectMetadata {
+  id:ID;
+  type:ID;
+  meta:string;
+}
+
+table AddActiveObjects {
+  objects:[ActiveObjectMetadata];
+}
+
+table SetObjectAttributes {
+  space_id:ID;
+  objects:[AttributeDefinition];
+}
+
+union Msg { 
+  Handshake, 
+  UserAction, 
+  On3DAction, 
+  InteractonTrigger,
+  SetWorld,
+  ObjectDefinition,
+  AddStaticObjects,
+  AddActiveObjects,
+  SetObjectTextures,
+  SetObjectStrings,
+  SetObjectAttributes
+}
+table FlatBuffMsg {
+  msg:Msg;
+}
+
+root_type FlatBuffMsg;
