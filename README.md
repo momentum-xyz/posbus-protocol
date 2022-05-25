@@ -1,9 +1,7 @@
-# posbus-protocol
+# Momentum posbus protocol
 
-## About
-
-This repository holds definition for PosBus v2 API.
+Posbus protocol is responsible for generation code which reflects PosBus v2 API.
 
 ## Prerequisites
 
-There are no prerequisites. Flatbuffer compiler is included in repository.
+There are no prerequisites. Flatbuffer compilers are included in repository.
