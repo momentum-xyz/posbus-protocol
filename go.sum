@@ -4,3 +4,5 @@ github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
 github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=
 github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
+github.com/momentum-xyz/controller v0.1.14 h1:garsHJqPoZGOuEUJPbWkU87kavJUCSxoORvjOj24BUk=
+github.com/momentum-xyz/controller v0.1.14/go.mod h1:zUAtgUrbxDREkcfKjCK9tueI0C1C0wY6mY3+vG1dDxE=

@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"math"
 
+	"github.com/momentum-xyz/controller/pkg/cmath"
 	"github.com/momentum-xyz/posbus-protocol/utils"
 
 	"github.com/google/uuid"
@@ -26,7 +27,7 @@ func NewTriggerTransitionalEffectsOnPositionMsg(numEffects int) *TriggerTransiti
 	}
 }
 
-func (m *TriggerTransitionalEffectsOnPosition) SetEffect(i int, emitter uuid.UUID, pos utils.Vec3, effect uint32) {
+func (m *TriggerTransitionalEffectsOnPosition) SetEffect(i int, emitter uuid.UUID, pos cmath.Vec3, effect uint32) {
 	start := MsgArrTypeSize + i*TriggerTransitionalEffectsOnPositionElementSize
 	copy(m.Msg()[start:], utils.BinID(emitter))
 	binary.LittleEndian.PutUint32(m.Msg()[start+MsgUUIDTypeSize:], math.Float32bits(pos.X))

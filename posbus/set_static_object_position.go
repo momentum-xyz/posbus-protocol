@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"math"
 
+	"github.com/momentum-xyz/controller/pkg/cmath"
 	"github.com/momentum-xyz/posbus-protocol/utils"
 
 	"github.com/google/uuid"
@@ -20,7 +21,7 @@ func NewSetStaticObjectPositionMsg() *SetStaticObjectPosition {
 	}
 }
 
-func (m *SetStaticObjectPosition) SetPosition(id uuid.UUID, pos utils.Vec3) {
+func (m *SetStaticObjectPosition) SetPosition(id uuid.UUID, pos cmath.Vec3) {
 	copy(m.Msg()[:MsgUUIDTypeSize], utils.BinID(id))
 	binary.LittleEndian.PutUint32(m.Msg()[MsgUUIDTypeSize:], math.Float32bits(pos.X))
 	binary.LittleEndian.PutUint32(m.Msg()[MsgUUIDTypeSize+MsgOnePosSize:], math.Float32bits(pos.Y))

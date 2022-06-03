@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"math"
 
+	"github.com/momentum-xyz/controller/pkg/cmath"
 	"github.com/momentum-xyz/posbus-protocol/utils"
 
 	"github.com/google/uuid"
@@ -27,7 +28,7 @@ func NewTriggerTransitionalBridgingEffectsOnPositionMsg(numEffects int) *Trigger
 }
 
 func (m *TriggerTransitionalBridgingEffectsOnPosition) SetEffect(
-	i int, emitter uuid.UUID, from, to utils.Vec3, effect uint32,
+	i int, emitter uuid.UUID, from, to cmath.Vec3, effect uint32,
 ) {
 	start := MsgArrTypeSize + i*TriggerTransitionalBridgingEffectsOnPositionElementSize
 	copy(m.Msg()[start:], utils.BinID(emitter))
