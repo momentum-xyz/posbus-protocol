@@ -3,10 +3,23 @@ package posbus
 import (
 	"encoding/binary"
 	"github.com/google/uuid"
+	"github.com/momentum-xyz/posbus-protocol/utils"
 )
 
 type TriggerInteraction struct {
 	*Message
+}
+
+func NewTriggerInteractionMsg(kind uint32, target uuid.UUID, flag int32, label string) *TriggerInteraction {
+	obj := NewMessage(MsgTriggerInteraction, MsgTypeSize+MsgUUIDTypeSize+MsgTypeSize+MsgArrTypeSize+len(label))
+	binary.LittleEndian.PutUint32(obj.Msg(), kind)
+	copy(obj.Msg()[MsgTypeSize:], utils.BinID(target))
+	binary.LittleEndian.PutUint32(obj.Msg()[MsgTypeSize+MsgUUIDTypeSize:], uint32(flag))
+	binary.LittleEndian.PutUint32(obj.Msg()[MsgTypeSize+MsgUUIDTypeSize+MsgTypeSize:], uint32(len(label)))
+	copy(obj.Msg()[MsgTypeSize+MsgUUIDTypeSize+MsgTypeSize+MsgArrTypeSize:], label)
+	return &TriggerInteraction{
+		Message: obj,
+	}
 }
 
 func (m *Message) AsTriggerInteraction() *TriggerInteraction {
