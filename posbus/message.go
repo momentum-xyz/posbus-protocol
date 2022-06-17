@@ -45,6 +45,7 @@ const (
 	SignalNone Signal = iota
 	SignalDualConnection
 	SignalReady
+	SignalInvalidToken
 )
 
 type Trigger uint32
