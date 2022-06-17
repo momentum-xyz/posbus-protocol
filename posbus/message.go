@@ -46,6 +46,7 @@ const (
 	SignalDualConnection
 	SignalReady
 	SignalInvalidToken
+	SignalSpawn
 )
 
 type Trigger uint32
